@@ -2,7 +2,7 @@
 
 ### JSON 格式
 
-请求地址：`https://api.comments.cn.com/`
+请求地址：`https://api.comments.hk/`
 
 请求方式：`GET`
 
@@ -32,7 +32,7 @@
 ```js
 <script>
   var xhr = new XMLHttpRequest();
-  xhr.open('get', 'https://api.comments.cn.com/');
+  xhr.open('get', 'https://api.comments.hk/');
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       var data = JSON.parse(xhr.responseText);
