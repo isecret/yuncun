@@ -8,6 +8,10 @@
 
 你能在这倾听别人的故事，亦或许是你的故事。
 
+## 快速接入
+
+[项目主页](https://comments.hk/) | [API 文档](https://github.com/isecret/yuncun/blob/master/DOC.md)
+
 ## 我们能提供什么
 
 项目后台定期拉取热门歌曲排行榜列表并获取其中的热门评论，通过接口随机分发一条热门评论，你可以查看 [API 文档](https://github.com/isecret/yuncun/blob/master/DOC.md) 快速接入。
