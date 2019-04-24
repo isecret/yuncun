@@ -50,4 +50,5 @@
 ## 链接
 - [WangMao's Blog](https://blog.wangmao.me)
 - [今日诗词](https://www.jinrishici.com/)
+- [Hitokoto - 一言](https://hitokoto.cn/)
 
