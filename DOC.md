@@ -20,6 +20,7 @@
 | author | 歌曲作者 |
 | album | 歌曲所属专辑 |
 | description | 歌曲描述 |
+| mp3_url | 歌曲资源链接，已处理为 https 链接 |
 | pub_date | 歌曲发行时间 |
 | comment_id | 评论 ID |
 | comment_user_id | 评论所属用户 ID |
