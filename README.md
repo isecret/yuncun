@@ -24,6 +24,7 @@
 ## 感谢
 
 - [今日诗词](https://www.jinrishici.com/)
+- [Hitokoto - 一言](https://hitokoto.cn/)
 
 ## 数据来源
 
