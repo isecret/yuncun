@@ -44,5 +44,10 @@
 </script>
 ```
 
-### 更新日志
+## 更新日志
 - 2019/4/21 更新 JSON 文档第一版
+
+## 链接
+- [WangMao's Blog](https://blog.wangmao.me)
+- [今日诗词](https://www.jinrishici.com/)
+
