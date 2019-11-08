@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>乐评 · 一言 API</title>
+    <meta name="keywords" content="乐评,网易云热评,网易云热评Api,一言">
+    <meta name="description" content="乐评(comments.hk)是一个随机分发网易云热评的接口，自动采集热评。你能在这倾听别人的故事，亦或许是你的故事。">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1151154_sknokr1xffs.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            color: #333;
+        }
+        body {
+            font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: #808080;
+        }
+        .album-img-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: #808080;
+            background-image: url(https://p2.music.126.net/zlG4B8SuUTlHc2OXCEuvIg==/3306231465818039.jpg?param=100y100);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            z-index: -2;
+        }
+        .album-img-bg-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: #808080;
+            background-image: url(https://p2.music.126.net/zlG4B8SuUTlHc2OXCEuvIg==/3306231465818039.jpg?param=100y100);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            filter: blur(14px);
+            -webkit-filter: blur(14px);
+            -moz-filter: blur(14px);
+            -ms-filter: blur(14px);   
+            z-index: -1;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            flex-direction: column;
+        }
+        .card-container {
+            width:280px;
+            background: #FFF;
+        }
+        .album-container {
+            width: 280px;
+            height: 280px;
+        }
+        .album-img {
+            width: 280px;
+            height: 280px;
+            min-width: 100%; 
+            min-height: 100%; 
+            vertical-align: middle;
+            background: #808080;
+        }
+        .comment-container {
+            min-height: 120px;
+        }
+        .comment-text {
+            position: relative;
+            text-indent:2em;
+            color: #808080;
+            font-size: 14px;
+            padding: 12px;
+        }
+        .comment-text::after {
+            position: absolute;
+            top: 0.06em;
+            left: -.7em;
+            font-family: "iconfont" !important;
+            font-size: 32px;
+            color: #808080;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\e63c";
+        }
+        .author-container {
+            color: #808080;
+            font-size: 12px;
+            padding: 12px;
+            text-align: right;
+        }
+        .author-container .iconfont {
+            font-size: 12px;
+            padding: 2px;
+        }
+        .nav-container {
+            position: absolute;
+            bottom: 24px;
+        }
+        .nav-items {
+            font-size: 18px;
+            margin: 4px 0;
+            text-align: center;
+        }
+        .nav-items span {
+            margin: 0 14px;
+        }
+        .company {
+            color: #333;
+            text-align: center;
+            font-size: 12px;
+        }
+        .company .iconfont {
+            color: tomato;
+            font-size: 12px;
+        }
+        @media screen and (max-width: 512px) {
+            .album-container {
+                display: none;
+            }
+        }
+        .mask {
+            filter: blur(4px);
+            -webkit-filter: blur(4px);
+            -moz-filter: blur(4px);
+            -ms-filter: blur(4px);   
+        }
+        .shownow {
+            animation: show 1s;
+        }
+        @keyframes show
+        {
+            from {
+                filter: blur(4px);
+                -webkit-filter: blur(4px);
+                -moz-filter: blur(4px);
+                -ms-filter: blur(4px);
+            }
+            to {
+                filter: blur(0);
+                -webkit-filter: blur(0);
+                -moz-filter: blur(0);
+                -ms-filter: blur(0);
+            }
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123139263-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-123139263-3');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="card-container mask">
+            <div class="album-container">
+                <img class="album-img" id="album-img" src="https://p2.music.126.net/zlG4B8SuUTlHc2OXCEuvIg==/3306231465818039.jpg?param=100y100">
+            </div>
+            <div class="comment-container">
+                <div class="comment-text" id="comment-text">&nbsp;&nbsp;少女正在祈祷中...</div>
+                <div class="author-container">
+                    <div class="author-text">来自 @<span id="commnet-user">加载中...</span></div>
+                    <div class="author-text">在「<span id="song-name">加载中...</span>」</div>
+                    <div class="author-text"><i class="iconfont icon-musiccloud"></i>歌曲下方的评论</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-container">
+            <div class="nav-items">
+                <span><a href="https://github.com/isecret/yuncun/blob/master/DOC.md" target="_blank">API</a></span>
+                <span><a href="https://github.com/isecret/yuncun/" target="_blank">关于</a></span>
+                <!-- <span><a href="#" target="_blank">贡献</a></span> -->
+                <span><a href="https://blog.wangmao.me/" target="_blank">博客</a></span>
+            </div>
+            <div class="company">
+                <span>乐评 已分发 <i id="api-request-count">-</i> 次 <i class="iconfont icon-like"></i> Designed by <a href="https://blog.wangmao.me/">Secret</a></span>
+            </div>
+        </div>
+    </div>
+    <script src="/js/fetch.min.js"></script>
+    <script src="/js/jquery.slim.min.js"></script>
+    <script src="/js/rgbaster.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+    <script src="https://files.wangmao.me/js/canvas2image.js"></script> -->
+    <script src="/js/env.js"></script>
+    <script>
+        var api_domain = window.api_domain;
+        function getHotComment() {
+            var random = Math.random();
+            $('.card-container').addClass('mask');
+            $('.card-container').removeClass('shownow');
+            fetch(api_domain+'?random='+random)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                window.hotComments = data;
+                var album = new Image();
+                album.src = data.images+'?param=280y280';
+                album.onload = function () {
+                    $('#album-img').attr('src', album.src);
+                    $('#comment-text').text(data.comment_content);
+                    $('#commnet-user').text(data.comment_nickname);
+                    $('#song-name').text(data.title);
+                    $('.card-container').addClass('shownow');
+                    // 获取专辑主色调 取反色设置文字
+                    RGBaster.colors(album, {
+                        success: function(payload) {
+                            $('.card-container').removeClass('mask');
+                            var c = payload.dominant.match(/\d+/g);
+                            var Color = `rgba(${c[0]},${c[1]},${c[2]},0.8)`;
+                            var grayLevel = c[0] * 0.299 + c[1] * 0.587 + c[2] * 0.114;
+                            if (grayLevel >= 192) {
+                                $('a').css('color', '#333');
+                                $('.company').css('color', '#333');
+                            } else {
+                                $('a').css('color', '#EEE');
+                                $('.company').css('color', '#EEE');
+                            }
+                            $('body').css('background', payload.dominant);
+                        }
+                    });
+                };
+            })
+            .catch(function (e) {
+                console.log(e)
+            });
+        }
+
+        function getCount() {
+            var random = Math.random();
+            fetch(api_domain+'/count?random='+random)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                $('#api-request-count').text(data.api_request_count);
+            })
+            .catch(function (e) {
+                console.log(e)
+            });
+        }
+
+        // 定时更新
+        setInterval(function(){
+            getHotComment();
+        }, 10000);
+
+        // 乐评生成图片
+        // function capture() {
+        //     html2canvas().then(function(canvas) {
+        //         Canvas2Image.saveAsImage(canvas, );
+        //     });
+        // }
+
+        // 更新
+        getHotComment();
+        getCount();
+    </script>
+</body>
+</html>
